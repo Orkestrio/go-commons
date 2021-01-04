@@ -9,7 +9,7 @@ import (
 )
 
 func RunUpdater(dysonUrl string, selfName string, selfUrl string, selfSubUrl string) {
-	fmt.Println("Updater init")
+	fmt.Println("Updater initiated")
 	// client := graphql.NewClient("http://dyson:4000/graphql")
 	client := graphql.NewClient(dysonUrl)
 	ctx := context.Background()
