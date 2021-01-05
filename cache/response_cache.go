@@ -61,7 +61,10 @@ func (a ResponseCache) InterceptResponse(ctx context.Context, next graphql.Respo
 	}
 
 	valueTyped := value.(graphql.Response)
-	sp.Finish()
+
+	if rc.Operation.Name != "IntrospectionQuery" {
+		sp.Finish()
+	}
 
 	return &valueTyped
 }
