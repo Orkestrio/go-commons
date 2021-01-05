@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/99designs/gqlgen v0.13.0
+	github.com/go-pg/pg/v10 v10.7.3
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/machinebox/graphql v0.2.2
 	github.com/mitchellh/mapstructure v1.1.2
