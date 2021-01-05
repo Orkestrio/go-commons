@@ -10,16 +10,9 @@ import (
 
 func RunUpdater(dysonUrl string, selfName string, selfUrl string, selfSubUrl string) {
 	fmt.Println("Updater initiated")
-	// client := graphql.NewClient("http://dyson:4000/graphql")
 	client := graphql.NewClient(dysonUrl)
 	ctx := context.Background()
 
-	// make a request
-	// req := graphql.NewRequest(fmt.Sprintf(`
-	// 		mutation register {
-	// 			register(serviceName: "ServiceRegistry", apiEndpoint: "http://service-registry:3004/graphql", subEndpoint: "http://service-registry:3004/subs")
-	// 	  	}
-	// 	`, selfName, selfUrl, selfSubUrl))
 	req := graphql.NewRequest(fmt.Sprintf(`
 			mutation register {
 				register(serviceName: "%s", apiEndpoint: "%s", subEndpoint: "%s")
