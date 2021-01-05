@@ -1,4 +1,4 @@
-package extension
+package cache
 
 import (
 	"context"
