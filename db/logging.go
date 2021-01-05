@@ -8,13 +8,13 @@ import (
 	"github.com/go-pg/pg/v10"
 )
 
-type dbLogger struct{}
+type DBLogger struct{}
 
-func (d dbLogger) BeforeQuery(c context.Context, q *pg.QueryEvent) (context.Context, error) {
+func (d DBLogger) BeforeQuery(c context.Context, q *pg.QueryEvent) (context.Context, error) {
 	return c, nil
 }
 
-func (d dbLogger) AfterQuery(c context.Context, q *pg.QueryEvent) error {
+func (d DBLogger) AfterQuery(c context.Context, q *pg.QueryEvent) error {
 	query, _ := q.FormattedQuery()
 
 	now := time.Now()
