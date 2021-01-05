@@ -7,6 +7,8 @@ import (
 	"fmt"
 
 	"github.com/99designs/gqlgen/graphql"
+	opentracing "github.com/opentracing/opentracing-go"
+	ext "github.com/opentracing/opentracing-go/ext"
 )
 
 type ResponseCache struct {
@@ -36,6 +38,16 @@ func (a ResponseCache) InterceptResponse(ctx context.Context, next graphql.Respo
 		return next(ctx)
 	}
 
+	spanRaw := ctx.Value("span")
+	sp := opentracing.StartSpan("cache")
+
+	if spanRaw != nil {
+		wireContext := spanRaw.(opentracing.SpanContext)
+		sp = opentracing.StartSpan(
+			"cache",
+			ext.RPCServerOption(wireContext))
+	}
+
 	query := rc.RawQuery
 	queryHash := computeQueryHash(query)
 	value, found := a.Cache.Get(ctx, queryHash)
@@ -51,6 +63,7 @@ func (a ResponseCache) InterceptResponse(ctx context.Context, next graphql.Respo
 	}
 
 	valueTyped := value.(graphql.Response)
+	sp.Finish()
 
 	return &valueTyped
 }
