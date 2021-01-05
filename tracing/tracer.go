@@ -16,6 +16,7 @@ func InitTracer() {
 	jaegerHost := os.Getenv("JAEGER_AGENT_HOST")
 
 	if jaegerHost != "" {
+		fmt.Println("Jaeger config found, initialization...")
 		cfg, err := jaegercfg.FromEnv()
 		if err != nil {
 			// parsing errors might happen here, such as when we get a string where we expect a number
