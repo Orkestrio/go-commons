@@ -2,8 +2,6 @@ package cache
 
 import (
 	"context"
-	"crypto/sha256"
-	"encoding/hex"
 	"fmt"
 
 	"github.com/99designs/gqlgen/graphql"
@@ -66,9 +64,4 @@ func (a ResponseCache) InterceptResponse(ctx context.Context, next graphql.Respo
 	sp.Finish()
 
 	return &valueTyped
-}
-
-func computeQueryHash(query string) string {
-	b := sha256.Sum256([]byte(query))
-	return hex.EncodeToString(b[:])
 }
