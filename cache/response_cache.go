@@ -47,7 +47,7 @@ func (a ResponseCache) InterceptResponse(ctx context.Context, next graphql.Respo
 	}
 
 	query := rc.RawQuery
-	queryHash := computeQueryHash(query)
+	queryHash := computeQueryHash(fmt.Sprintf("%s:%v", query, rc.Variables))
 	value, found := a.Cache.Get(ctx, queryHash)
 
 	if !found {
