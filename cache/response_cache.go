@@ -55,6 +55,7 @@ func (a ResponseCache) InterceptResponse(ctx context.Context, next graphql.Respo
 		resp := next(ctx)
 		respCopy := *resp
 
+		fmt.Println("Request: ", query)
 		fmt.Println("Response:", string(respCopy.Data), ", errors: ", respCopy.Errors)
 
 		if len(respCopy.Errors) == 0 {
@@ -65,6 +66,7 @@ func (a ResponseCache) InterceptResponse(ctx context.Context, next graphql.Respo
 	}
 
 	valueTyped := value.(graphql.Response)
+	fmt.Println("Request from cache: ", query)
 	fmt.Println("Response from cache:", string(valueTyped.Data), ", errors: ", valueTyped.Errors)
 
 	if rc.Operation.Name != "IntrospectionQuery" {
