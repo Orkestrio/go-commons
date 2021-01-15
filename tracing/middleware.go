@@ -19,6 +19,9 @@ func JaegerMiddleware(next http.Handler) http.Handler {
 			ctx = context.WithValue(ctx, "span", wireContext)
 		}
 
+		unitID := r.Header.Get("X-Unit-Id")
+		ctx = context.WithValue(ctx, "unitID", unitID)
+
 		r = r.WithContext(ctx)
 		next.ServeHTTP(w, r)
 	})
