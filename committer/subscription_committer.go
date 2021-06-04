@@ -4,9 +4,9 @@ import (
 	"github.com/Orkestrio/go-commons/bus"
 )
 
-var ACTION_CREATE = "create"
-var ACTION_UPDATE = "update"
-var ACTION_DELETE = "delete"
+var ACTION_CREATE = "CREATE"
+var ACTION_UPDATE = "UPDATE"
+var ACTION_DELETE = "DELETE"
 
 type Notification struct {
 	Model  string
@@ -37,6 +37,6 @@ func (comm *SubscriptionCommitter) Notify(model string, id int, action string) {
 
 func (comm *SubscriptionCommitter) Commit() {
 	for _, notification := range comm.Notifications {
-		bus.MessageBus.Publish(notification.Model, notification.ID)
+		bus.MessageBus.Publish(notification.Model, notification)
 	}
 }
