@@ -4,9 +4,14 @@ import (
 	"github.com/Orkestrio/go-commons/bus"
 )
 
+var ACTION_CREATE = "create"
+var ACTION_UPDATE = "update"
+var ACTION_DELETE = "delete"
+
 type Notification struct {
-	Model string
-	ID    int
+	Model  string
+	Action string
+	ID     int
 }
 
 type SubscriptionCommitter struct {
@@ -17,16 +22,16 @@ func (comm *SubscriptionCommitter) Init() {
 	comm.Notifications = []Notification{}
 }
 
-func (comm *SubscriptionCommitter) Notify(model string, id int) {
+func (comm *SubscriptionCommitter) Notify(model string, id int, action string) {
 	found := false
 	for _, entry := range comm.Notifications {
-		if (entry.Model == model) && (entry.ID == id) {
+		if (entry.Model == model) && (entry.ID == id) && (entry.Action == action) {
 			found = true
 		}
 	}
 
 	if !found {
-		comm.Notifications = append(comm.Notifications, Notification{Model: model, ID: id})
+		comm.Notifications = append(comm.Notifications, Notification{Model: model, ID: id, Action: action})
 	}
 }
 
